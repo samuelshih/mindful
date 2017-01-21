@@ -6,6 +6,7 @@ var alchemy_language = watson.alchemy_language({
 	api_key: '4d9e0bf8ac8aeaba0b0edd7fcd04798f64c54a25'
 });
 
+var http = require('http').Server(express);
 var io = require('socket.io')(http);
 
 //new Date()
