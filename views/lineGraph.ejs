@@ -1,29 +1,16 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <% include partials/head %>
-    <title><%= title %></title>
-  </head>
-  <% include partials/header %>
-  <body>
-    <div class="container">
-      <h2>Emotions chart</h2>
-      <div>
-        <canvas id="emotionsLineChart"></canvas>
-      </div>
+<div class="graph-container-left">
+  <!-- <h3>Emotions for Today</h3> -->
+  <div>
+    <canvas id="emotionsLineChart"></canvas>
+  </div>
 
-      <script>
-        // LINE CHART DATA
-        var lineCtx = document.getElementById('emotionsLineChart').getContext('2d');
-        var graphData = <%- JSON.stringify(data) %>;
-        var lineChart = new Chart(lineCtx, {
-          type: 'line',
-          data: graphData
-        });
-      </script>
-
-      </script>
-    </div>
-
-  </body>
-</html>
+  <script>
+    // LINE CHART DATA
+    var lineCtx = document.getElementById('emotionsLineChart').getContext('2d');
+    var graphData = <%- JSON.stringify(lineData) %>;
+    var lineChart = new Chart(lineCtx, {
+      type: 'line',
+      data: graphData
+    });
+  </script>
+</div>

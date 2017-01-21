@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<% include partials/head %>
+	</head>
+
+<body>
+	<% include partials/newNavs %>
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+				<li class="active">Icons</li>
+			</ol>
+		</div><!--/.row-->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Mindful Charts</h1>
+
+			</div>
+		</div><!--/.row-->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-info">
+					<div class="panel-heading">Emotions for Today</div>
+					<div class="panel-body">
+						<div class="canvas-wrapper">
+							<% include lineGraph %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="panel panel-info">
+					<div class="panel-heading">Radar Graph</div>
+					<div class="panel-body">
+						<div class="canvas-wrapper">
+							<% include radarGraph %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- CIRCLE GRAPH STUFF -->
+			<div class="row">
+				<div class="col-xs-6 col-md-2 col-md-offset-1">
+					<div class="panel panel-default">
+						<div class="panel-body easypiechart-panel">
+							<h4>Anger</h4>
+							<div class="easypiechart" id="easypiechart-anger" data-percent="50" ><span class="percent">50%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-md-2">
+					<div class="panel panel-default">
+						<div class="panel-body easypiechart-panel">
+							<h4>Joy</h4>
+							<div class="easypiechart" id="easypiechart-disgust" data-percent="65" ><span class="percent">65%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-md-2">
+					<div class="panel panel-default">
+						<div class="panel-body easypiechart-panel">
+							<h4>Disgust</h4>
+							<div class="easypiechart" id="easypiechart-fear" data-percent="56" ><span class="percent">56%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-md-2">
+					<div class="panel panel-default">
+						<div class="panel-body easypiechart-panel">
+							<h4>Sadness</h4>
+							<div class="easypiechart" id="easypiechart-joy" data-percent="27" ><span class="percent">27%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-md-2">
+					<div class="panel panel-default">
+						<div class="panel-body easypiechart-panel">
+							<h4>Fear</h4>
+							<div class="easypiechart" id="easypiechart-sadness" data-percent="27" ><span class="percent">27%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><!--/.row-->
+
+	</div>	<!--/.main-->
+
+
+	<script src="lumino-dist/js/jquery-1.11.1.min.js"></script>
+	<script src="lumino-dist/js/bootstrap.min.js"></script>
+	<script src="lumino-dist/js/chart.min.js"></script>
+	<!-- <script src="lumino-dist/js/chart-data.js"></script> -->
+	<script src="lumino-dist/js/easypiechart.js"></script>
+	<script src="lumino-dist/js/easypiechart-data.js"></script>
+	<script src="lumino-dist/js/bootstrap-datepicker.js"></script>
+	<script>
+		!function ($) {
+		    $(document).on("click","ul.nav li.parent > a > span.icon", function(){
+		        $(this).find('em:first').toggleClass("glyphicon-minus");
+		    });
+		    $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+		}(window.jQuery);
+
+		$(window).on('resize', function () {
+		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+		})
+		$(window).on('resize', function () {
+		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+		})
+	</script>
+</body>
+
+</html>

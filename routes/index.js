@@ -11,7 +11,7 @@ var emotionsColors = {
   'Disgust' : 'rgb(99, 1, 196)',
   'Fear': 'rgb(0, 0, 0)',
   'Joy' : 'rgb(5, 255, 46)',
-  'sadness' : 'rgb(1, 73, 218)'
+  'Sadness' : 'rgb(1, 73, 218)'
 }
 var hours = [];
 for (var i=0; i<= 23; i++) {
@@ -20,51 +20,43 @@ for (var i=0; i<= 23; i++) {
 var blank = "rgba(0, 0, 0, 0)"
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  // console.log(res)
-  res.render('index', { title: 'helo world' }); // render index.ejs
+
+// ************************************
+// ****** DATA ************************
+// ************************************
+var lineData = {
+  labels: hours,
+  datasets: [{
+    label: 'Anger',
+    data: [12, 19, 3, 17, 6, 3, 7, 5, 3, 1, 3, 7, 5, 3, 2, 4, 15, 37],
+    borderColor: "rgba(153,255,51,0.6)",
+    backgroundColor: blank
+  }, {
+    label: 'Disgust',
+    data: [2, 29, 5, 5, 2, 3, 10, 16, 3 , 5, 31, 21, 9],
+    borderColor: "rgba(255,153,0,0.6)",
+    backgroundColor: blank
+  }]
+}
+
+var radarData = {
+  labels: emotions,
+  datasets: [{
+    label: "Me",
+    backgroundColor: "rgba(153,255,51,0.4)",
+    borderColor: "rgba(153,255,51,1)",
+    data: [10, 10, 10, 10, 10]
+  }]
+}
+
+router.get('/',  function(req, res, next) {
+  res.render('index2', {
+    title: 'Home', lineData: lineData, radarData: radarData
+  });
 });
 
 
 // Five line graphs on top of each other, different colors that
 // show all the emotions
-router.get('/lineGraph', function(req, res, next) {
-  var lineData = {
-    labels: hours,
-    datasets: [{
-      label: 'apples',
-      data: [12, 19, 3, 17, 6, 3, 7],
-      borderColor: "rgba(153,255,51,0.6)",
-      backgroundColor: blank
-    }, {
-      label: 'oranges',
-      data: [2, 29, 5, 5, 2, 3, 10],
-      borderColor: "rgba(255,153,0,0.6)",
-      backgroundColor: blank
-    }]
-  }
-
-  res.render('lineGraph', { title: 'Graph', data: lineData});
-});
-
-router.get('/radarGraph', function(req, res, next) {
-  var radarData = {
-    labels: emotions,
-    datasets: [{
-      label: 'Me',
-      backgroundColor: "rgba(153,255,51,0.4)",
-      borderColor: "rgba(153,255,51,1)",
-      data: [10, 10, 10, 10, 10]
-    }]
-  }
-
-  res.render('radarGraph', { title: 'Graph', data: radarData});
-});
-
-
-router.get('/home',  function(req, res, next) {
-  res.render('index', { title: 'Home', data: lineData});
-});
-
 
 module.exports = router;

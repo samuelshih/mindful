@@ -1,30 +1,18 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <% include partials/head %>
-    <title><%= title %></title>
-  </head>
-  <% include partials/header %>
-
-  <body>
-    <div class="container">
-      <h2>Emotions chart</h2>
-      <div>
-        <canvas id="emotionsRadarChart"></canvas>
-      </div>
+<div class="graph-container-right">
+  <!-- <h3>Radar Graph</h3> -->
+  <div>
+    <canvas id="emotionsRadarChart"></canvas>
+  </div>
 
 
-      <script>
-      // RADAR CHART data
-      var radarCtx = document.getElementById('emotionsRadarChart').getContext('2d');
-      var graphData = <%- JSON.stringify(data) %>;
-      var radarChart = new Chart(radarCtx, {
-        type: 'radar',
-        data: graphData
-      });
+  <script>
+  // RADAR CHART data
+  var radarCtx = document.getElementById('emotionsRadarChart').getContext('2d');
+  var graphData = <%- JSON.stringify(radarData) %>;
+  var radarChart = new Chart(radarCtx, {
+    type: 'radar',
+    data: graphData
+  });
 
-      </script>
-    </div>
-
-  </body>
-</html>
+  </script>
+</div>

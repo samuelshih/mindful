@@ -1,12 +1,30 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: white;
 }
 
 a {
   color: #00B7FF;
 }
 
-.container {
-  width: 100%;
-  margin: 15px auto;
+.graph-container-left {
+  background-color: white;
+  border-radius: 20px;
+  /*margin: 40px;*/
+  /*padding: 10px 100px 10px 100px;*/
+}
+
+.graph-container-right {
+  background-color: white;
+  border-radius: 20px;
+  /*margin: 40px;*/
+  /*padding: 10px 100px 10px 100px;*/
+}
+
+.navbar-default {
+  /*background-color: #27AE60;*/
+}
+
+#sidebar-collapse {
+  background-color: #27AE60;
 }
