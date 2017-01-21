@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include partials/head %>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Emotions chart</h2>
+
+      <div>
+        <canvas id="emotionsLineChart"></canvas>
+      </div>
+
+      <script>
+        // LINE CHART DATA
+        var lineCtx = document.getElementById('emotionsLineChart').getContext('2d');
+        var graphData = <%- JSON.stringify(data) %>;
+        var lineChart = new Chart(lineCtx, {
+          type: 'line',
+          data: graphData
+        });
+      </script>
+
+
+      </script>
+    </div>
+
+  </body>
+</html>

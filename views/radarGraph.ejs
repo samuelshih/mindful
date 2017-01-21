@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include partials/head %>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Emotions chart</h2>
+      <div>
+        <canvas id="emotionsRadarChart"></canvas>
+      </div>
+
+
+      <script>
+      // RADAR CHART data
+      var radarCtx = document.getElementById('emotionsRadarChart').getContext('2d');
+      var graphData = <%- JSON.stringify(data) %>;
+      var radarChart = new Chart(radarCtx, {
+        type: 'radar',
+        data: graphData
+      });
+
+      </script>
+    </div>
+
+  </body>
+</html>
