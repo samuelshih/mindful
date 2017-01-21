@@ -6,12 +6,9 @@ var alchemy_language = watson.alchemy_language({
 	api_key: '4d9e0bf8ac8aeaba0b0edd7fcd04798f64c54a25'
 });
 
-//new Date()
-//look this up
-
 function User() {
 	this.name = 'Tester';
-	this.params = {};
+	this.params = {}; // string of text
 	this.emotions = {}; /*
 	{date: { anger: '0.090702',
   disgust: '0.077208',
@@ -19,6 +16,8 @@ function User() {
   joy: '0.497131',
   sadness: '0.238544',
  	entries: 1}}*/
+	// date is of the form year_month_day
+	// entries is the # of strings per hour
 };
 
 var test = new User();
@@ -61,27 +60,36 @@ router.get('/', function(req, res, next) {
 
 var c = 0;
 
+/* post to /newdata */
 router.post('/newdata', function(req, res) {
+	// get today's date for date year_month_day key for emotions dictionary
 	var d = new Date();
 	var date = String(d.getFullYear()) + "_" + String(d.getMonth()) + "_" + String(d.getDate()) + "_" + String(d.getHours());
 	test.params['text'] = req.body['hello'];  //CHANGE THE KEY FOR THE REQUEST BODY DEPENDING ON ERIC
 
+	// call watson with params
 	alchemy_language.emotion(test.params, function (err, res) {
 		if (err)
 			console.log('error:', err);
+		// if no error, update user's emotions with new data (res)
 		else {
+			// if we already have this date key in emotions, update emotions
 			if (date in test.emotions) {
+				// for each emotion, update value
 				for (var key in res['docEmotions']) {
 					var sum = test.emotions[date]['entries']*Number(test.emotions[date][key]);
 					test.emotions[date][key] = String((Number(res['docEmotions'][key]) + sum)/(test.emotions[date]['entries'] + 1));
 				};
+				// increment entries and log to console
 				test.emotions[date]['entries'] ++;
 				console.log(test.emotions[date]);
 			}
+			// if we haven't added this date key to emotions yet, add
 			else {
 				test.emotions[date] = res['docEmotions'];
 				test.emotions[date].entries = 1;
 				console.log(test.emotions[date]);
+				// emit emotions to socket
 				req.app.io.emit('emotions', test.emotions);
 			};
 		};
