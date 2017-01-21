@@ -6,7 +6,9 @@
   </head>
   <% include partials/header %>
   <body>
-    <% include lineGraph %>
-    <% include radarGraph %>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/script.js"></script>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
   </body>
 </html>
