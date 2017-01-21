@@ -61,6 +61,17 @@ router.get('/', function(req, res, next) {
 	res.render('index', { title: 'Express' }); // render index.ejs
 });
 
+var c = 0;
+
+router.post('/newdata', function(req, res) {
+	c += 1;
+	res.end('yay');
+});
+
+router.get('/newdata', function(req, res) {
+	res.end(String(c));
+});
+
 module.exports = router;
 
 //get, post
