@@ -5,6 +5,28 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <form action="">
+      <!-- there is a button in this form -->
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+
+
+
+    <script>
+      var socket = io();
+      $('form').submit(function(){
+        socket.emit('chat message', $('#m').val());
+        $('#m').val('');
+        return false;
+      });
+      socket.on('chat message', function(msg){
+        $('#messages').append($('<li>').text(msg));
+      });
+    </script>
+
+
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
   </body>
