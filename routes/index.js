@@ -9,13 +9,9 @@ var alchemy_language = watson.alchemy_language({
 //new Date()
 //look this up
 
-var parameters = {
-	text: 'Im so angry!'
-};
-
 function User() {
 	this.name = 'Tester';
-	this.info = {'2017_01_20_00': 'happy sad angry'};
+	this.params = {};
 	this.emotions = {}; /*
 	{date: { anger: '0.090702',
   disgust: '0.077208',
@@ -25,31 +21,35 @@ function User() {
  	entries: 1}}*/
 };
 
+var test = new User();
+test.params['showSourceText'] = 1;
+
 router.get('/test'/*another trigger*/, function(req, res, next){
-	test = new User();
 	console.log(test.name);
-	for (var key in test.info) {
-		alchemy_language.emotion({text: test.info[key], showSourceText: 1}, function (err, res) {
-			if (err)
-				console.log('error:', err);
-			else
-				var d = new Date();
-				var date = String(d.getFullYear()) + "_" + String(d.getMonth()) + "_" + String(d.getDate()) + "_" + String(d.getHours());
-				if (date in test.emotions) {
-					for (var key in res['docEmotions']) {
-						var sum = test.emotions[date]['entries']*Number(test.emotions[date][key]);
-						test.emotions[date][key] = String((Number(res['docEmotions'][key]) + sum)/(test.emotions[date]['entries'] + 1));
-					};
-					test.emotions[date]['entries'] ++;
-					console.log(test.emotions[date]);
-				}
-				else {
-					test.emotions[date] = res['docEmotions'];
-					test.emotions[date].entries = 1;
-					console.log(test.emotions[date]);
+
+	test.params['text'] = 'hello world';
+
+	alchemy_language.emotion(test.params, function (err, res) {
+		if (err)
+			console.log('error:', err);
+		else {
+			var d = new Date();
+			var date = String(d.getFullYear()) + "_" + String(d.getMonth()) + "_" + String(d.getDate()) + "_" + String(d.getHours());
+			if (date in test.emotions) {
+				for (var key in res['docEmotions']) {
+					var sum = test.emotions[date]['entries']*Number(test.emotions[date][key]);
+					test.emotions[date][key] = String((Number(res['docEmotions'][key]) + sum)/(test.emotions[date]['entries'] + 1));
 				};
-  	});
-	};
+				test.emotions[date]['entries'] ++;
+				console.log(test.emotions[date]);
+			}
+			else {
+				test.emotions[date] = res['docEmotions'];
+				test.emotions[date].entries = 1;
+				console.log(test.emotions[date]);
+			};
+		}
+	});
 	res.render('index', { title: 'Testing' });
 });
 //});
@@ -62,9 +62,31 @@ router.get('/', function(req, res, next) {
 var c = 0;
 
 router.post('/newdata', function(req, res) {
-	c += 1;
+	var d = new Date();
+	var date = String(d.getFullYear()) + "_" + String(d.getMonth()) + "_" + String(d.getDate()) + "_" + String(d.getHours());
+	console.log('FJIEWAO;JEWAAAAAJ');
+	console.log(req.header);
+	test.params['text'] = req.body;
 
-	req.app.io.emit('emotions', c);
+	alchemy_language.emotion(test.params, function (err, res) {
+		if (err)
+			console.log('error:', err);
+		else {
+			if (date in test.emotions) {
+				for (var key in res['docEmotions']) {
+					var sum = test.emotions[date]['entries']*Number(test.emotions[date][key]);
+					test.emotions[date][key] = String((Number(res['docEmotions'][key]) + sum)/(test.emotions[date]['entries'] + 1));
+				};
+				test.emotions[date]['entries'] ++;
+			}
+			else {
+				test.emotions[date] = res['docEmotions'];
+				test.emotions[date].entries = 1;
+			};
+		};
+	});
+
+	req.app.io.emit('emotions', test.emotions[date]);
 	res.end('yay');
 });
 
