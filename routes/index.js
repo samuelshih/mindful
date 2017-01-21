@@ -49,7 +49,7 @@ var radarData = {
   }]
 }
 
-router.get('/',  function(req, res, next) {
+router.get('/home',  function(req, res, next) {
   res.render('index2', {
     title: 'Home', lineData: lineData, radarData: radarData
   });
