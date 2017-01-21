@@ -29,12 +29,12 @@ var lineData = {
   datasets: [{
     label: 'Anger',
     data: [12, 19, 3, 17, 6, 3, 7, 5, 3, 1, 3, 7, 5, 3, 2, 4, 15, 37],
-    borderColor: "rgba(153,255,51,0.6)",
+    borderColor: emotionsColors['Anger']
     backgroundColor: blank
   }, {
     label: 'Disgust',
     data: [2, 29, 5, 5, 2, 3, 10, 16, 3 , 5, 31, 21, 9],
-    borderColor: "rgba(255,153,0,0.6)",
+    borderColor: emotionsColors['Disgust']
     backgroundColor: blank
   }]
 }
