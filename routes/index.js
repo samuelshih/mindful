@@ -61,4 +61,10 @@ router.get('/radarGraph', function(req, res, next) {
   res.render('radarGraph', { title: 'Graph', data: radarData});
 });
 
+
+router.get('/home',  function(req, res, next) {
+  res.render('index', { title: 'Home', data: lineData});
+});
+
+
 module.exports = router;
