@@ -14,9 +14,7 @@ var parameters = {
 
 function User() {
 	this.name = 'Tester';
-	this.info = {'2017_01_20_00': 'I am sad', '2017_01_20_01': 'I am angry',
-								'2017_01_20_02': 'I am happy', '2017_01_20_03': 'I am disgusted',
-								'2017_01_20_04': 'I am afraid'};
+	this.info = {'2017_01_20_00': 'happy sad angry'};
 	this.emotions = {}; /*
 	{date: { anger: '0.090702',
   disgust: '0.077208',
@@ -35,7 +33,7 @@ function User() {
 				if (err)
 					console.log('error:', err);
 				else
-					var d = new Date()
+					var d = new Date();
 					var date = String(d.getFullYear()) + "_" + String(d.getMonth()) + "_" + String(d.getDate()) + "_" + String(d.getHours());
 					if (date in test.emotions) {
 						for (var key in res['docEmotions']) {
