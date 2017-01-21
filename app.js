@@ -4,10 +4,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var http = require('http');
+var app = express();
+
+var server = http.createServer(app);
+var io = require('socket.io')(server);
+
+app.io = io;
 
 var index = require('./routes/index');
-
-var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -41,4 +46,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+module.exports = server;

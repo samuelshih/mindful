@@ -6,9 +6,6 @@ var alchemy_language = watson.alchemy_language({
 	api_key: '4d9e0bf8ac8aeaba0b0edd7fcd04798f64c54a25'
 });
 
-var http = require('http').Server(express);
-var io = require('socket.io')(http);
-
 //new Date()
 //look this up
 
@@ -28,34 +25,33 @@ function User() {
  	entries: 1}}*/
 };
 
-//io.on(/*some trigger*/, function(socket){
-	router.get('/test'/*another trigger*/, function(req, res, next){
-		test = new User();
-		console.log(test.name);
-		for (var key in test.info) {
-			alchemy_language.emotion({text: test.info[key], showSourceText: 1}, function (err, res) {
-				if (err)
-					console.log('error:', err);
-				else
-					var d = new Date();
-					var date = String(d.getFullYear()) + "_" + String(d.getMonth()) + "_" + String(d.getDate()) + "_" + String(d.getHours());
-					if (date in test.emotions) {
-						for (var key in res['docEmotions']) {
-							var sum = test.emotions[date]['entries']*Number(test.emotions[date][key]);
-							test.emotions[date][key] = String((Number(res['docEmotions'][key]) + sum)/(test.emotions[date]['entries'] + 1));
-						};
-						test.emotions[date]['entries'] ++;
-						console.log(test.emotions[date]);
-					}
-					else {
-						test.emotions[date] = res['docEmotions'];
-						test.emotions[date].entries = 1;
-						console.log(test.emotions[date]);
+router.get('/test'/*another trigger*/, function(req, res, next){
+	test = new User();
+	console.log(test.name);
+	for (var key in test.info) {
+		alchemy_language.emotion({text: test.info[key], showSourceText: 1}, function (err, res) {
+			if (err)
+				console.log('error:', err);
+			else
+				var d = new Date();
+				var date = String(d.getFullYear()) + "_" + String(d.getMonth()) + "_" + String(d.getDate()) + "_" + String(d.getHours());
+				if (date in test.emotions) {
+					for (var key in res['docEmotions']) {
+						var sum = test.emotions[date]['entries']*Number(test.emotions[date][key]);
+						test.emotions[date][key] = String((Number(res['docEmotions'][key]) + sum)/(test.emotions[date]['entries'] + 1));
 					};
-	  	});
-		};
-		res.render('index', { title: 'Testing' });
-	});
+					test.emotions[date]['entries'] ++;
+					console.log(test.emotions[date]);
+				}
+				else {
+					test.emotions[date] = res['docEmotions'];
+					test.emotions[date].entries = 1;
+					console.log(test.emotions[date]);
+				};
+  	});
+	};
+	res.render('index', { title: 'Testing' });
+});
 //});
 
 /* GET home page. */
@@ -68,7 +64,7 @@ var c = 0;
 router.post('/newdata', function(req, res) {
 	c += 1;
 
-	socket.emit('emotions', c);
+	req.app.io.emit('emotions', c);
 	res.end('yay');
 });
 
