@@ -1,0 +1,4 @@
+# mindful
+```
+npm install
+```
