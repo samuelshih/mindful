@@ -64,9 +64,7 @@ var c = 0;
 router.post('/newdata', function(req, res) {
 	var d = new Date();
 	var date = String(d.getFullYear()) + "_" + String(d.getMonth()) + "_" + String(d.getDate()) + "_" + String(d.getHours());
-	console.log('FJIEWAO;JEWAAAAAJ');
-	console.log(req.header);
-	test.params['text'] = req.body;
+	test.params['text'] = req.body['hello'];  //CHANGE THE KEY FOR THE REQUEST BODY DEPENDING ON ERIC
 
 	alchemy_language.emotion(test.params, function (err, res) {
 		if (err)
@@ -78,15 +76,16 @@ router.post('/newdata', function(req, res) {
 					test.emotions[date][key] = String((Number(res['docEmotions'][key]) + sum)/(test.emotions[date]['entries'] + 1));
 				};
 				test.emotions[date]['entries'] ++;
+				console.log(test.emotions[date]);
 			}
 			else {
 				test.emotions[date] = res['docEmotions'];
 				test.emotions[date].entries = 1;
+				console.log(test.emotions[date]);
+				req.app.io.emit('emotions', test.emotions);
 			};
 		};
 	});
-
-	req.app.io.emit('emotions', test.emotions[date]);
 	res.end('yay');
 });
 
