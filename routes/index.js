@@ -66,6 +66,8 @@ var c = 0;
 
 router.post('/newdata', function(req, res) {
 	c += 1;
+
+	socket.emit('emotions', c);
 	res.end('yay');
 });
 
