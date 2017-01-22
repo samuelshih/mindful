@@ -41,6 +41,3 @@ $(function() {
        barColor: emotionsColors['Sadness']
    });
 });
-
-$('#calendar').datepicker({
-	});

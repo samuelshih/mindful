@@ -25,8 +25,9 @@ var blank = "rgba(0, 0, 0, 0)"
 // *********************
 
 // feels['emotion'] = [#'s filling from socket_data]
+
 var feels = {'anger': [], 'disgust': [], 'fear': [], 'joy': [], 'sadness' : []};
-for (var min = 0; min < 60; min++){
+for (var min = 0; min < Object.keys(socket_data).length; min++){
   var key = String(hour) + '_' + String(min);
   if (key in socket_data){
     feels['anger'].push(Number(socket_data[key]['anger'])*100);
@@ -35,14 +36,8 @@ for (var min = 0; min < 60; min++){
     feels['joy'].push(Number(socket_data[key]['joy'])*100);
     feels['sadness'].push(Number(socket_data[key]['sadness'])*100);
   }
-  else{
-    feels['anger'].push(0.0);
-    feels['disgust'].push(0.0);
-    feels['fear'].push(0.0);
-    feels['joy'].push(0.0);
-    feels['sadness'].push(0.0);
-  }
-};
+}
+
 
 var lineData = {
   labels: minutes,
@@ -126,6 +121,7 @@ var socket = io();
 
 socket.on('emotions', function(emotion){
   console.log(JSON.stringify(emotion));
+  socket_data = emotion
 
   var data = emotion[Object.keys(emotion)[0]];
 
@@ -133,9 +129,8 @@ socket.on('emotions', function(emotion){
   console.log(lineChart.data.datasets)
 
   for (var i = 0; i < 5; i++) {
-    lineChart.data.datasets[i].data[last] = data[emotion_names[i]] * 100;
-    // console.log(emotion_names[i]);
-    // console.log(data[emotion_names[i]]);
+    // lineChart.data.datasets[i].data[last] = data[emotion_names[i]] * 100;
+    lineChart.data.datasets[i].data.push(data[emotion_names[i]] * 100);
   }
 
   console.log(lineChart.data.datasets)
