@@ -49,6 +49,8 @@ var socket_data = { '2017_1_1_0': { 'anger': '0.090702',
                                     'entries': 1},
 };
 
+
+var data;
 var socket = io();
 
 socket.on('emotions', function(emotion){

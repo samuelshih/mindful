@@ -1,11 +1,11 @@
-body {
+/*body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: white;
-}
-
+}*/
+/*
 a {
   color: #00B7FF;
-}
+}*/
 
 .graph-container-left {
   background-color: white;
@@ -22,7 +22,7 @@ a {
 }
 
 .navbar-default {
-  /*background-color: #27AE60;*/
+  background-color: #2ecc71;
 }
 
 #sidebar-collapse {

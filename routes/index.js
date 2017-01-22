@@ -30,7 +30,7 @@ test.params['showSourceText'] = 1;
 
 /* GET home page. */
 router.get('/',  function(req, res, next) {
-  res.render('index2', {
+  res.render('index', {
     title: 'Home'
   });
 });
