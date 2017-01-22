@@ -85,13 +85,33 @@ var lineChart = new Chart(lineCtx, {
 // *** RADAR GRAPH *****
 // *********************
 
+var averages = [0, 0, 0, 0, 0];
+var total = 0;
+for (var min = 0; min < 60; min++){
+  var key = String(hour) + '_' + String(min);
+  if (key in socket_data){
+    num = Number(socket_data[key]['entries']);
+    total += num;
+    averages[0] += feels['anger'][min]*num;
+    averages[1] += feels['disgust'][min]*num;
+    averages[2] += feels['fear'][min]*num;
+    averages[3] += feels['joy'][min]*num;
+    averages[4] += feels['sadness'][min]*num;
+  }
+}
+averages[0] = averages[0] / total;
+averages[1] = averages[1] / total;
+averages[2] = averages[2] / total;
+averages[3] = averages[3] / total;
+averages[4] = averages[4] / total;
+
 var radarData = {
   labels: emotions,
   datasets: [{
     label: "Me",
     backgroundColor: "rgba(153,255,51,0.4)",
     borderColor: "rgba(153,255,51,1)",
-    data: [10, 10, 10, 10, 10]
+    data: averages
   }]
 }
 
