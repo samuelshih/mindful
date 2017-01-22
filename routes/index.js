@@ -40,7 +40,7 @@ router.get('/',  function(req, res, next) {
 router.post('/newdata', function(req, res) {
   // get today's date for date year_month_day key for emotions dictionary
 	var d = new Date();
-	var date = String(String(d.getHours()) + "_" + String(d.getMinutes()));
+	var date = String(String(d.getHours()) + "_" + String(test.numEntries));
 	test.params['text'] = req.body['text'];  //CHANGE THE KEY FOR THE REQUEST BODY DEPENDING ON ERIC
 
   // call watson with params
@@ -67,7 +67,7 @@ router.post('/newdata', function(req, res) {
 				console.log(test.emotions[date]);
 			};
       // emit emotions to socket
-      test.numEntries += test.emotions[date]['entries']; // store how many entries there have been
+      test.numEntries += 1; // store how many entries there have been
 			req.app.io.emit('emotions', test);
 		};
 	});
