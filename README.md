@@ -1,5 +1,7 @@
-# mindful
-## [iOS Keyboard Extension](https://github.com/edwickable/mindful-keyboard/)
+# Mindful
+* [iOS Keyboard Extension](https://github.com/edwickable/mindful-keyboard/)
+* [Pennapps XV Devpost](https://devpost.com/software/mindful-t7ovb5)
+
 ## Inspiration
 We believe that your behavior online, communication with friends, interactions with your smartphone all relate to how you're feeling throughout the day. We thought - wouldn't it be helpful to track your mental health and emotions as you use your phone?
 
@@ -19,6 +21,6 @@ We learned about data visualizations, formatting data from HTTP results, how to 
 We hope to expand Mindful to use user's data from Facebook, Twitter, Emails, etc. To scale up, we hope to add a database that can store the sentiment analysis data for multiple users who can be authenticated with OAuth. This would make Mindful a market ready product.
 
 
-
 ```
 For the demo, emotions are indexed by a timestamp which reads <hours>_<minute>, which have values 0-23 and 0-60 respectively
+```
