@@ -101,8 +101,13 @@ var socket = io();
 
 socket.on('emotions', function(emotion){
   console.log(JSON.stringify(emotion));
-  // socket_data = emotion;
+  socket_data = emotion;
 
-  lineChart.data.datasets[0].data[2] = 50;
+  var last = lineChart.data.datasets[0].data.length - 1;
+  lineChart.data.datasets[0].data[last] = emotion[0];
+  lineChart.data.datasets[1].data[last] = emotion[1];
+  lineChart.data.datasets[2].data[last] = emotion[2];
+  lineChart.data.datasets[3].data[last] = emotion[3];
+  lineChart.data.datasets[4].data[last] = emotion[4];
   lineChart.update();
 });
