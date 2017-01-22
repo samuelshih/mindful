@@ -18,5 +18,19 @@ function generate(num=5) {
 
  // Populate Socket Data
 var socket_data = {}
+var date = new Date();
+var hour = String(date.getHours())
+for(var i = 0; i < 15; i++) {
+  var key = String(hour) + '_' + String(i);
+  var points = generate();
+  socket_data[key] = {
+    'anger': points[0],
+    'disgust': points[1],
+    'fear': points[2],
+    'joy': points[3],
+    'sadness': points[4],
+    'entries': Math.floor(Math.random() * 10) + 1
+  }
+}
 
 var socket = io();

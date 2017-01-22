@@ -1,5 +1,6 @@
 
 // Run for first time init, works for fake data in the beginning
+// goes in script.js
 var date = new Date();
 var hour = String(date.getHours())
 for(var i = 0; i < 30; i++) {
@@ -15,9 +16,10 @@ for(var i = 0; i < 30; i++) {
   }
 }
 
+// goes in graph.js
 
 var total = 0;
-for (var min = 0; min < 60; min++){
+for (var min = 0; min < 15; min++){
   var key = String(hour) + '_' + String(min);
   if (key in socket_data){
     num = Number(socket_data[key]['entries']);

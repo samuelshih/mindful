@@ -1,15 +1,15 @@
 // {"2017_0_21_19":{"anger":"0.081767","disgust":"0.050649","fear":"0.098549","joy":"0.567902","sadness":"0.239843","entries":1}}
 var emotion_names = ['anger', 'disgust', 'fear', 'joy', 'sadness'];
 var emotionsColors = {
-  'anger' : 'rgb(239, 0, 0)',
-  'disgust' : 'rgb(99, 1, 196)',
-  'fear': 'rgb(0, 0, 0)',
-  'joy' : 'rgb(5, 255, 46)',
-  'sadness' : 'rgb(1, 73, 218)'
+  'anger' : '#e74c3c',
+  'disgust' : '#8e44ad',
+  'fear': '#2c3e50',
+  'joy' : '#2ecc71',
+  'sadness' : '#2980b9'
 }
 
 var minutes = [];
-for (var i=0; i< 60; i++) {
+for (var i=0; i< 30; i++) {
     if (i%10 == 0){
       minutes[i] = String(i);
     }
@@ -46,49 +46,39 @@ var lineData = {
       label: 'anger',
       data: feels['anger'],
       borderColor: emotionsColors['anger'],
-      backgroundColor: blank
+      backgroundColor: blank,
+      responsive: true
     }, {
       label: 'disgust',
       data: feels['disgust'],
       borderColor: emotionsColors['disgust'],
-      backgroundColor: blank
+      backgroundColor: blank,
+      responsive: true
     }, {
       label: 'fear',
       data: feels['fear'],
       borderColor: emotionsColors['fear'],
-      backgroundColor: blank
+      backgroundColor: blank,
+      responsive: true
     }, {
       label: 'joy',
       data: feels['joy'],
       borderColor: emotionsColors['joy'],
-      backgroundColor: blank
+      backgroundColor: blank,
+      responsive: true
     }, {
       label: 'sadness',
       data: feels['sadness'],
       borderColor: emotionsColors['sadness'],
-      backgroundColor: blank
+      backgroundColor: blank,
+      responsive: true
     }]
 };
 
 var lineCtx = document.getElementById('emotionsLineChart').getContext('2d');
 var lineChart = new Chart(lineCtx, {
  type: 'line',
- data: lineData,
- responsive: true,
- options: {
-   xAxes: [{
-     scaleLabel: {
-       display: true,
-       labelString: "Minutes"
-     }
-   }],
-   yAxes: [{
-     scaleLabel: {
-       display: true,
-       labelString: "Percent"
-     }
-   }]
- }
+ data: lineData
 });
 
 // *********************
@@ -114,6 +104,27 @@ function updatePieCharts(){
   $('.joy-percent').html(String(averages[3].toFixed(0)) + '%');
   $('.sadness-percent').html(String(averages[4].toFixed(0)) + '%');
 }
+
+
+var total = 0;
+for (var min = 0; min < 60; min++){
+  var key = String(hour) + '_' + String(min);
+  if (key in socket_data){
+    num = Number(socket_data[key]['entries']);
+    total += num;
+    averages[0] += feels['anger'][min]*num;
+    averages[1] += feels['disgust'][min]*num;
+    averages[2] += feels['fear'][min]*num;
+    averages[3] += feels['joy'][min]*num;
+    averages[4] += feels['sadness'][min]*num;
+  }
+}
+for (var k = 0; k < 5; k++){
+  averages[k] = averages[k] / total;
+}
+
+updatePieCharts(); // for first time init
+
 
 
 function updateAverages(user) {
