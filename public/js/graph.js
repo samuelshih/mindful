@@ -1,11 +1,11 @@
 // {"2017_0_21_19":{"anger":"0.081767","disgust":"0.050649","fear":"0.098549","joy":"0.567902","sadness":"0.239843","entries":1}}
-var emotions = ['Anger', 'Disgust', 'Fear', 'Joy', 'Sadness'];
+var emotions = ['anger', 'disgust', 'fear', 'joy', 'sadness'];
 var emotionsColors = {
-  'Anger' : 'rgb(239, 0, 0)',
-  'Disgust' : 'rgb(99, 1, 196)',
-  'Fear': 'rgb(0, 0, 0)',
-  'Joy' : 'rgb(5, 255, 46)',
-  'Sadness' : 'rgb(1, 73, 218)'
+  'anger' : 'rgb(239, 0, 0)',
+  'disgust' : 'rgb(99, 1, 196)',
+  'fear': 'rgb(0, 0, 0)',
+  'joy' : 'rgb(5, 255, 46)',
+  'sadness' : 'rgb(1, 73, 218)'
 }
 
 var hours = [];
@@ -22,61 +22,67 @@ var blank = "rgba(0, 0, 0, 0)"
 // var lineData = {
 //   labels: hours,
 //   datasets: [{
-//     label: 'Anger',
+//     label: 'anger',
 //     data: socket_data/*[12, 19, 3, 17, 6, 3, 7, 5, 3, 1, 3, 7, 5, 3, 2, 4, 15, 37]*/,
-//     borderColor: emotionsColors['Anger'],
+//     borderColor: emotionsColors['anger'],
 //     backgroundColor: blank
 //   }, {
-//     label: 'Disgust',
+//     label: 'disgust',
 //     data: [2, 29, 5, 5, 2, 3, 10, 16, 3 , 5, 31, 21, 9],
-//     borderColor: emotionsColors['Disgust'],
+//     borderColor: emotionsColors['disgust'],
 //     backgroundColor: blank
 //   }]
 // }
 
-var feels = new Array(5);
-for (var i = 0; i < 5; i++){
-  feels[i] = new Array(24);
-  for (var hour = 0; hour < 24; hour++){
-    var key = '2017_1_1_' + String(hour);
-    if (key in socket_data){
-      feels[i][hours] = Number(socket_data[key]*100;
-    }
-    else{
-      feels[i][hours] = 0.0
-    }
+// feels[0-4 for each feeling in alphabetical order][0-23 for hour]
+var feels = {'anger': [], 'disgust': [], 'fear': [], 'joy': [], 'sadness' : []};
+for (var hour = 0; hour < 24; hour++){
+  var key = '2017_1_1_' + String(hour);
+  if (key in socket_data){
+    feels['anger'].push(Number(socket_data[key]['anger'])*100);
+    feels['disgust'].push(Number(socket_data[key]['disgust'])*100);
+    feels['fear'].push(Number(socket_data[key]['fear'])*100);
+    feels['joy'].push(Number(socket_data[key]['joy'])*100);
+    feels['sadness'].push(Number(socket_data[key]['sadness'])*100);
   }
-}
+  else{
+    feels['anger'].push(0.0);
+    feels['disgust'].push(0.0);
+    feels['fear'].push(0.0);
+    feels['joy'].push(0.0);
+    feels['sadness'].push(0.0);
+  }
+};
 
 var lineData = {
-  labels = hours,
-  datasets = [{
-      label: 'Anger',
-      data = feels[0],
-      borderColor: emotionsColors['Anger'],
+  labels: hours,
+  datasets: [{
+      label: 'anger',
+      data: feels[0],
+      borderColor: emotionsColors['anger'],
       backgroundColor: blank
     }, {
-      label: 'Disgust',
-      data = feels[1],
-      borderColor: emotionsColors['Disgust'],
+      label: 'disgust',
+      data: feels[1],
+      borderColor: emotionsColors['disgust'],
       backgroundColor: blank
     }, {
-      label: 'Fear',
-      data = feels[2],
-      borderColor: emotionsColors['Fear'],
+      label: 'fear',
+      data: feels[2],
+      borderColor: emotionsColors['fear'],
       backgroundColor: blank
     }, {
-      label: 'Joy',
-      data = feels[3],
-      borderColor: emotionsColors['Joy'],
+      label: 'joy',
+      data: feels[3],
+      borderColor: emotionsColors['joy'],
       backgroundColor: blank
     }, {
-      label: 'Sadness',
-      data = feels[4],
-      borderColor: emotionsColors['Sadness'],
+      label: 'sadness',
+      data: feels[4],
+      borderColor: emotionsColors['sadness'],
       backgroundColor: blank
     }]
-}
+};
 
 var lineCtx = document.getElementById('emotionsLineChart').getContext('2d');
 var lineChart = new Chart(lineCtx, {
