@@ -3,8 +3,8 @@ data = {}
 year = 2017
 month = 1
 day = 1
-for minute in range(24):
-    key = '%s_%s_%s_%s' % (year, month, day, minute)
+for hour in range(24):
+    key = '%s_%s_%s_%s' % (year, month, day, hour)
     data[key] = {}
     nums = np.random.dirichlet(np.ones(5),size=1)
     data[key]['anger'] = nums[0]
