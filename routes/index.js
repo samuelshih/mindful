@@ -39,7 +39,7 @@ router.get('/',  function(req, res, next) {
 router.post('/newdata', function(req, res) {
   // get today's date for date year_month_day key for emotions dictionary
 	var d = new Date();
-	var date = String(d.getFullYear()) + "_" + String(d.getMonth()) + "_" + String(d.getDate()) + "_" + String(d.getHours());
+	var date = String(String(d.getHours()) + "_" + String(d.getMinutes()));
 	test.params['text'] = req.body['text'];  //CHANGE THE KEY FOR THE REQUEST BODY DEPENDING ON ERIC
 
   // call watson with params

@@ -19,21 +19,6 @@ var blank = "rgba(0, 0, 0, 0)"
 // *** LINE GRAPH ******
 // *********************
 
-// var lineData = {
-//   labels: hours,
-//   datasets: [{
-//     label: 'anger',
-//     data: socket_data/*[12, 19, 3, 17, 6, 3, 7, 5, 3, 1, 3, 7, 5, 3, 2, 4, 15, 37]*/,
-//     borderColor: emotionsColors['anger'],
-//     backgroundColor: blank
-//   }, {
-//     label: 'disgust',
-//     data: [2, 29, 5, 5, 2, 3, 10, 16, 3 , 5, 31, 21, 9],
-//     borderColor: emotionsColors['disgust'],
-//     backgroundColor: blank
-//   }]
-// }
-
 // feels[0-4 for each feeling in alphabetical order][0-23 for hour]
 var feels = {'anger': [], 'disgust': [], 'fear': [], 'joy': [], 'sadness' : []};
 for (var hour = 0; hour < 24; hour++){
