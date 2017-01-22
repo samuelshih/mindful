@@ -1,5 +1,5 @@
 // {"2017_0_21_19":{"anger":"0.081767","disgust":"0.050649","fear":"0.098549","joy":"0.567902","sadness":"0.239843","entries":1}}
-var emotions = ['anger', 'disgust', 'fear', 'joy', 'sadness'];
+var emotion_names = ['anger', 'disgust', 'fear', 'joy', 'sadness'];
 var emotionsColors = {
   'anger' : 'rgb(239, 0, 0)',
   'disgust' : 'rgb(99, 1, 196)',
@@ -106,7 +106,7 @@ averages[3] = averages[3] / total;
 averages[4] = averages[4] / total;
 
 var radarData = {
-  labels: emotions,
+  labels: emotion_names,
   datasets: [{
     label: "Me",
     backgroundColor: "rgba(153,255,51,0.4)",
@@ -126,13 +126,18 @@ var socket = io();
 
 socket.on('emotions', function(emotion){
   console.log(JSON.stringify(emotion));
-  socket_data = emotion;
+
+  var data = emotion[Object.keys(emotion)[0]];
 
   var last = lineChart.data.datasets[0].data.length - 1;
-  lineChart.data.datasets[0].data[last] = emotion[0];
-  lineChart.data.datasets[1].data[last] = emotion[1];
-  lineChart.data.datasets[2].data[last] = emotion[2];
-  lineChart.data.datasets[3].data[last] = emotion[3];
-  lineChart.data.datasets[4].data[last] = emotion[4];
+  console.log(lineChart.data.datasets)
+
+  for (var i = 0; i < 5; i++) {
+    lineChart.data.datasets[i].data[last] = data[emotion_names[i]] * 100;
+    // console.log(emotion_names[i]);
+    // console.log(data[emotion_names[i]]);
+  }
+
+  console.log(lineChart.data.datasets)
   lineChart.update();
 });
