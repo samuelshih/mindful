@@ -24,7 +24,7 @@ for(var i = 0; i < 23; i++) {
   socket_data[key] = {
     'anger': points[0],
     'disgust': points[1],
-    'fear': points[2]
+    'fear': points[2],
     'joy': points[3],
     'sadness': points[4]
   }

@@ -58,27 +58,27 @@ var lineData = {
   labels: hours,
   datasets: [{
       label: 'anger',
-      data: feels[0],
+      data: feels['anger'],
       borderColor: emotionsColors['anger'],
       backgroundColor: blank
     }, {
       label: 'disgust',
-      data: feels[1],
+      data: feels['disgust'],
       borderColor: emotionsColors['disgust'],
       backgroundColor: blank
     }, {
       label: 'fear',
-      data: feels[2],
+      data: feels['fear'],
       borderColor: emotionsColors['fear'],
       backgroundColor: blank
     }, {
       label: 'joy',
-      data: feels[3],
+      data: feels['joy'],
       borderColor: emotionsColors['joy'],
       backgroundColor: blank
     }, {
       label: 'sadness',
-      data: feels[4],
+      data: feels['sadness'],
       borderColor: emotionsColors['sadness'],
       backgroundColor: blank
     }]
