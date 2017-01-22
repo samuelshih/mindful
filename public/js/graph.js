@@ -74,7 +74,21 @@ var lineCtx = document.getElementById('emotionsLineChart').getContext('2d');
 var lineChart = new Chart(lineCtx, {
  type: 'line',
  data: lineData,
- responsive: true
+ responsive: true,
+ options: {
+   xAxes: [{
+     scaleLabel: {
+       display: true,
+       labelString: "Minutes"
+     }
+   }],
+   yAxes: [{
+     scaleLabel: {
+       display: true,
+       labelString: "Percent"
+     }
+   }]
+ }
 });
 
 // *********************
@@ -94,7 +108,7 @@ function updatePieCharts(){
   $("#easypiechart-joy").attr('data-percent',averages[3]);
   $("#easypiechart-sadness").attr('data-percent',averages[4]);
 
-  $('.angry-percent').html(String(averages[0].toFixed(0)) + '%');
+  $('.anger-percent').html(String(averages[0].toFixed(0)) + '%');
   $('.disgust-percent').html(String(averages[1].toFixed(0)) + '%');
   $('.fear-percent').html(String(averages[2].toFixed(0)) + '%');
   $('.joy-percent').html(String(averages[3].toFixed(0)) + '%');
