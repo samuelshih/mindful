@@ -25,8 +25,10 @@ var blank = "rgba(0, 0, 0, 0)"
 // *********************
 
 // feels['emotion'] = [#'s filling from socket_data]
+var date = new Date();
+var hour = String(date.getHours())
 var feels = {'anger': [], 'disgust': [], 'fear': [], 'joy': [], 'sadness' : []};
-for (var min = 0; min < 60; min++){
+for (var min = 0; min < Object.keys(socket_data).length; min++){
   var key = String(hour) + '_' + String(min);
   if (key in socket_data){
     feels['anger'].push(Number(socket_data[key]['anger'])*100);
@@ -35,14 +37,8 @@ for (var min = 0; min < 60; min++){
     feels['joy'].push(Number(socket_data[key]['joy'])*100);
     feels['sadness'].push(Number(socket_data[key]['sadness'])*100);
   }
-  else{
-    feels['anger'].push(0.0);
-    feels['disgust'].push(0.0);
-    feels['fear'].push(0.0);
-    feels['joy'].push(0.0);
-    feels['sadness'].push(0.0);
-  }
-};
+}
+
 
 var lineData = {
   labels: minutes,
@@ -105,27 +101,9 @@ function updatePieCharts(){
   $('.sadness-percent').html(String(averages[4].toFixed(0)) + '%');
 }
 
-// Run for first time init, works for fake data in the beginning
-var total = 0;
-for (var min = 0; min < 60; min++){
-  var key = String(hour) + '_' + String(min);
-  if (key in socket_data){
-    num = Number(socket_data[key]['entries']);
-    total += num;
-    averages[0] += feels['anger'][min]*num;
-    averages[1] += feels['disgust'][min]*num;
-    averages[2] += feels['fear'][min]*num;
-    averages[3] += feels['joy'][min]*num;
-    averages[4] += feels['sadness'][min]*num;
-  }
-}
-for (var k = 0; k < 5; k++){
-  averages[k] = averages[k] / total;
-}
-
-updatePieCharts(); // for first time init
 
 function updateAverages(user) {
+
   for(var i = 0; i < averages.length; i++) {
     var emotions = user['emotions'] // emotions hash
     var data = emotions[Object.keys(emotions)[0]]
@@ -153,9 +131,7 @@ var radarChart = new Chart(radarCtx, {
   options: {
     scale: {
       ticks: {
-        beginAtZero: true,
-        fixedStepSize: 10,
-        showLabelBackdrop: true
+          beginAtZero: true
       }
     }
   }
@@ -164,6 +140,28 @@ var radarChart = new Chart(radarCtx, {
 socket.on('emotions', function(user){
   console.log(JSON.stringify(user));
   socket_data = user
+  updateAverages(user);
+  radarChart.update();
+});
+
+var socket = io();
+
+socket.on('emotions', function(user){
+  console.log(JSON.stringify(user));
+  socket_data = user['emotions']
+  var emotion = socket_data
+  var data = emotion[Object.keys(emotion)[0]];
+
+  // var last = lineChart.data.datasets[0].data.length - 1;
+  // console.log(lineChart.data.datasets)
+
+  for (var i = 0; i < 5; i++) {
+    // lineChart.data.datasets[i].data[last] = data[emotion_names[i]] * 100;
+    lineChart.data.datasets[i].data.push(data[emotion_names[i]] * 100);
+  }
+
+  console.log(lineChart.data.datasets)
+  lineChart.update();
   updateAverages(user);
   radarChart.update();
 });
