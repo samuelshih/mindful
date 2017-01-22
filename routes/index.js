@@ -24,9 +24,6 @@ var alchemy_language = watson.alchemy_language({
 	api_key: '4d9e0bf8ac8aeaba0b0edd7fcd04798f64c54a25'
 });
 
-//new Date()
-//look this up
-
 function User() {
 	this.name = 'Tester';
 	this.params = {};
@@ -42,36 +39,6 @@ function User() {
 var test = new User();
 test.params['showSourceText'] = 1;
 
-router.get('/test'/*another trigger*/, function(req, res, next){
-	console.log(test.name);
-
-	test.params['text'] = 'hello world';
-
-	alchemy_language.emotion(test.params, function (err, res) {
-		if (err)
-			console.log('error:', err);
-		else {
-			var d = new Date();
-			var date = String(d.getFullYear()) + "_" + String(d.getMonth()) + "_" + String(d.getDate()) + "_" + String(d.getHours());
-			if (date in test.emotions) {
-				for (var key in res['docEmotions']) {
-					var sum = test.emotions[date]['entries']*Number(test.emotions[date][key]);
-					test.emotions[date][key] = String((Number(res['docEmotions'][key]) + sum)/(test.emotions[date]['entries'] + 1));
-				};
-				test.emotions[date]['entries'] ++;
-				console.log(test.emotions[date]);
-			}
-			else {
-				test.emotions[date] = res['docEmotions'];
-				test.emotions[date].entries = 1;
-				console.log(test.emotions[date]);
-			};
-		}
-	});
-	res.render('index', { title: 'Testing' });
-});
-//});
-
 /* GET home page. */
 
 // ************************************
@@ -82,12 +49,12 @@ var lineData = {
   datasets: [{
     label: 'Anger',
     data: [12, 19, 3, 17, 6, 3, 7, 5, 3, 1, 3, 7, 5, 3, 2, 4, 15, 37],
-    borderColor: emotionsColors['Anger']
+    borderColor: emotionsColors['Anger'],
     backgroundColor: blank
   }, {
     label: 'Disgust',
     data: [2, 29, 5, 5, 2, 3, 10, 16, 3 , 5, 31, 21, 9],
-    borderColor: emotionsColors['Disgust']
+    borderColor: emotionsColors['Disgust'],
     backgroundColor: blank
   }]
 }
@@ -102,19 +69,16 @@ var radarData = {
   }]
 }
 
-router.get('/home',  function(req, res, next) {
+router.get('/',  function(req, res, next) {
   res.render('index2', {
     title: 'Home', lineData: lineData, radarData: radarData
   });
-
-router.get('/', function(req, res, next) {
-	res.render('index', { title: 'Express' }); // render index.ejs
 });
 
 router.post('/newdata', function(req, res) {
 	var d = new Date();
 	var date = String(d.getFullYear()) + "_" + String(d.getMonth()) + "_" + String(d.getDate()) + "_" + String(d.getHours());
-	test.params['text'] = req.body['hello'];  //CHANGE THE KEY FOR THE REQUEST BODY DEPENDING ON ERIC
+	test.params['text'] = req.body['text'];  //CHANGE THE KEY FOR THE REQUEST BODY DEPENDING ON ERIC
 
 	alchemy_language.emotion(test.params, function (err, res) {
 		if (err)
@@ -132,8 +96,8 @@ router.post('/newdata', function(req, res) {
 				test.emotions[date] = res['docEmotions'];
 				test.emotions[date].entries = 1;
 				console.log(test.emotions[date]);
-				req.app.io.emit('emotions', test.emotions);
 			};
+			req.app.io.emit('emotions', test.emotions);
 		};
 	});
 	res.end('Success');
