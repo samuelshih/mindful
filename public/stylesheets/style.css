@@ -1,8 +1,30 @@
-body {
-  padding: 50px;
+/*body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
+  background-color: white;
+}*/
+/*
 a {
   color: #00B7FF;
+}*/
+
+.graph-container-left {
+  background-color: white;
+  border-radius: 20px;
+  /*margin: 40px;*/
+  /*padding: 10px 100px 10px 100px;*/
+}
+
+.graph-container-right {
+  background-color: white;
+  border-radius: 20px;
+  /*margin: 40px;*/
+  /*padding: 10px 100px 10px 100px;*/
+}
+
+.navbar-default {
+  background-color: #2ecc71;
+}
+
+#sidebar-collapse {
+  background-color: #27AE60;
 }
