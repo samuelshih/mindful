@@ -34,7 +34,3 @@ for(var i = 0; i < 60; i++) {
 }
 
 var socket = io();
-
-socket.on('emotions', function(emotion){
-  alert(JSON.stringify(emotion));
-});

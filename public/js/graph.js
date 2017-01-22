@@ -1,5 +1,5 @@
 // {"2017_0_21_19":{"anger":"0.081767","disgust":"0.050649","fear":"0.098549","joy":"0.567902","sadness":"0.239843","entries":1}}
-var emotions = ['anger', 'disgust', 'fear', 'joy', 'sadness'];
+var emotion_names = ['anger', 'disgust', 'fear', 'joy', 'sadness'];
 var emotionsColors = {
   'anger' : 'rgb(239, 0, 0)',
   'disgust' : 'rgb(99, 1, 196)',
@@ -86,7 +86,26 @@ var lineChart = new Chart(lineCtx, {
 // *********************
 
 // calculating the average emotions over the whole day
+// INITIALIZATION ONLY, not called on socket signal
 var averages = [0, 0, 0, 0, 0];
+
+// setting attrubutes of the html classes for our graphs
+
+function updatePieCharts(){
+  $("#easypiechart-anger").attr('data-percent',averages[0]);
+  $("#easypiechart-disgust").attr('data-percent',averages[1]);
+  $("#easypiechart-fear").attr('data-percent',averages[2]);
+  $("#easypiechart-joy").attr('data-percent',averages[3]);
+  $("#easypiechart-sadness").attr('data-percent',averages[4]);
+
+  $('.angry-percent').html(String(averages[0].toFixed(0)) + '%');
+  $('.disgust-percent').html(String(averages[1].toFixed(0)) + '%');
+  $('.fear-percent').html(String(averages[2].toFixed(0)) + '%');
+  $('.joy-percent').html(String(averages[3].toFixed(0)) + '%');
+  $('.sadness-percent').html(String(averages[4].toFixed(0)) + '%');
+}
+
+// Run for first time init, works for fake data in the beginning
 var total = 0;
 for (var min = 0; min < 60; min++){
   var key = String(hour) + '_' + String(min);
@@ -104,21 +123,20 @@ for (var k = 0; k < 5; k++){
   averages[k] = averages[k] / total;
 }
 
-// setting attrubutes of the html classes for our graphs
-$("#easypiechart-anger").attr('data-percent',averages[0]);
-$("#easypiechart-disgust").attr('data-percent',averages[1]);
-$("#easypiechart-fear").attr('data-percent',averages[2]);
-$("#easypiechart-joy").attr('data-percent',averages[3]);
-$("#easypiechart-sadness").attr('data-percent',averages[4]);
+updatePieCharts(); // for first time init
 
-$('.angry-percent').html(String(averages[0].toFixed(0)) + '%');
-$('.disgust-percent').html(String(averages[1].toFixed(0)) + '%');
-$('.fear-percent').html(String(averages[2].toFixed(0)) + '%');
-$('.joy-percent').html(String(averages[3].toFixed(0)) + '%');
-$('.sadness-percent').html(String(averages[4].toFixed(0)) + '%');
+function updateAverages(user) {
+  for(var i = 0; i < averages.length; i++) {
+    var emotions = user['emotions'] // emotions hash
+    var data = emotions[Object.keys(emotions)[0]]
+    var new_avg = (averages[i] * user['numEntries'] + data[emotion_names[i]]*100 ) / (user['numEntries'] + 1);
+    averages[i] = new_avg
+  }
+  updatePieCharts();
+}
 
 var radarData = {
-  labels: emotions,
+  labels: emotion_names,
   datasets: [{
     label: "Me",
     backgroundColor: "rgba(153,255,51,0.4)",
@@ -131,5 +149,21 @@ var radarCtx = document.getElementById('emotionsRadarChart').getContext('2d');
 var radarChart = new Chart(radarCtx, {
   type: 'radar',
   data: radarData,
-  responsive: true
+  responsive: true,
+  options: {
+    scale: {
+      ticks: {
+        beginAtZero: true,
+        fixedStepSize: 10,
+        showLabelBackdrop: true
+      }
+    }
+  }
+});
+
+socket.on('emotions', function(user){
+  console.log(JSON.stringify(user));
+  socket_data = user
+  updateAverages(user);
+  radarChart.update();
 });

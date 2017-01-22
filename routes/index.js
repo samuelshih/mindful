@@ -13,7 +13,8 @@ var alchemy_language = watson.alchemy_language({
 function User() {
 	this.name = 'Tester';
 	this.params = {}; // string of text
-	this.emotions = {}; /*
+	this.emotions = {};
+  this.numEntries = 0; /*
 	{date: { anger: '0.090702',
   disgust: '0.077208',
   fear: '0.161844',
@@ -66,7 +67,8 @@ router.post('/newdata', function(req, res) {
 				console.log(test.emotions[date]);
 			};
       // emit emotions to socket
-			req.app.io.emit('emotions', test.emotions);
+      test.numEntries += test.emotions[date]['entries']; // store how many entries there have been
+			req.app.io.emit('emotions', test);
 		};
 	});
 	res.end('Success');
