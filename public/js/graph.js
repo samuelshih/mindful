@@ -8,9 +8,14 @@ var emotionsColors = {
   'sadness' : 'rgb(1, 73, 218)'
 }
 
-var hours = [];
-for (var i=0; i<= 23; i++) {
-    hours[i] = (i == 0) ? "12 AM" : ((i <12) ? i + " AM" : (i-12 || 12) + " PM");
+var minutes = [];
+for (var i=0; i< 60; i++) {
+    if (i%10 == 0){
+      minutes[i] = String(i);
+    }
+    else{
+      minutes[i] = '';
+    }
 }
 
 var blank = "rgba(0, 0, 0, 0)"
@@ -19,10 +24,10 @@ var blank = "rgba(0, 0, 0, 0)"
 // *** LINE GRAPH ******
 // *********************
 
-// feels[0-4 for each feeling in alphabetical order][0-23 for hour]
+// feels['emotion'] = [#'s filling from socket_data]
 var feels = {'anger': [], 'disgust': [], 'fear': [], 'joy': [], 'sadness' : []};
-for (var hour = 0; hour < 24; hour++){
-  var key = '2017_1_1_' + String(hour);
+for (var min = 0; min < 60; min++){
+  var key = String(hour) + '_' + String(min);
   if (key in socket_data){
     feels['anger'].push(Number(socket_data[key]['anger'])*100);
     feels['disgust'].push(Number(socket_data[key]['disgust'])*100);
@@ -40,7 +45,7 @@ for (var hour = 0; hour < 24; hour++){
 };
 
 var lineData = {
-  labels: hours,
+  labels: minutes,
   datasets: [{
       label: 'anger',
       data: feels['anger'],
