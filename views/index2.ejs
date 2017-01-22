@@ -17,7 +17,6 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header">Mindful Charts</h1>
-
 			</div>
 		</div><!--/.row-->
 
@@ -41,7 +40,6 @@
 					<div class="panel-body">
 						<div class="canvas-wrapper">
 							<% include radarGraph %>
-							FUCK ME
 						</div>
 					</div>
 				</div>
@@ -54,6 +52,7 @@
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
 							<h4>Anger</h4>
+							<!-- need to change both data-percent and the hardcoded value with ejs syntax <%= %>  -->
 							<div class="easypiechart" id="easypiechart-anger" data-percent="50" ><span class="percent">50%</span>
 							</div>
 						</div>
