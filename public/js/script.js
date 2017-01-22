@@ -1,7 +1,56 @@
 // Initialize Socket
-var emotions;
+var socket_data = { '2017_1_1_0': { 'anger': '0.090702',
+                                    'disgust': '0.077208',
+                                    'fear': '0.161844',
+                                    'joy': '0.497131',
+                                    'sadness': '0.238544',
+                                    'entries': 1},
+                    '2017_1_1_1': { 'anger': '0.090702',
+                                    'disgust': '0.077208',
+                                    'fear': '0.161844',
+                                    'joy': '0.497131',
+                                    'sadness': '0.238544',
+                                    'entries': 1},
+                    '2017_1_1_2': { 'anger': '0.090702',
+                                    'disgust': '0.077208',
+                                    'fear': '0.161844',
+                                    'joy': '0.497131',
+                                    'sadness': '0.238544',
+                                    'entries': 1},
+                    '2017_1_1_3': { 'anger': '0.090702',
+                                    'disgust': '0.077208',
+                                    'fear': '0.161844',
+                                    'joy': '0.497131',
+                                    'sadness': '0.238544',
+                                    'entries': 1},
+                    '2017_1_1_4': { 'anger': '0.090702',
+                                    'disgust': '0.077208',
+                                    'fear': '0.161844',
+                                    'joy': '0.497131',
+                                    'sadness': '0.238544',
+                                    'entries': 1},
+                    '2017_1_1_5': { 'anger': '0.090702',
+                                    'disgust': '0.077208',
+                                    'fear': '0.161844',
+                                    'joy': '0.497131',
+                                    'sadness': '0.238544',
+                                    'entries': 1},
+                    '2017_1_1_6': { 'anger': '0.090702',
+                                    'disgust': '0.077208',
+                                    'fear': '0.161844',
+                                    'joy': '0.497131',
+                                    'sadness': '0.238544',
+                                    'entries': 1},
+                    '2017_1_1_7': { 'anger': '0.090702',
+                                    'disgust': '0.077208',
+                                    'fear': '0.161844',
+                                    'joy': '0.497131',
+                                    'sadness': '0.238544',
+                                    'entries': 1},
+};
+
 var socket = io();
-  socket.on('emotions', function(emotion){
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>");
-    alert(JSON.stringify(emotion));
+
+socket.on('emotions', function(emotion){
+  alert(JSON.stringify(emotion));
 });
