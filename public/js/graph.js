@@ -72,7 +72,7 @@ var lineData = {
       backgroundColor: blank
     }, {
       label: 'Sadness',
-      data = feels[0],
+      data = feels[4],
       borderColor: emotionsColors['Sadness'],
       backgroundColor: blank
     }]
