@@ -3,16 +3,4 @@
   <div>
     <canvas id="emotionsRadarChart"></canvas>
   </div>
-
-
-  <script>
-  // RADAR CHART data
-  var radarCtx = document.getElementById('emotionsRadarChart').getContext('2d');
-  var graphData = <%- JSON.stringify(radarData) %>;
-  var radarChart = new Chart(radarCtx, {
-    type: 'radar',
-    data: graphData
-  });
-
-  </script>
 </div>

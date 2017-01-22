@@ -3,14 +3,4 @@
   <div>
     <canvas id="emotionsLineChart"></canvas>
   </div>
-
-  <script>
-    // LINE CHART DATA
-    var lineCtx = document.getElementById('emotionsLineChart').getContext('2d');
-    var graphData = <%- JSON.stringify(lineData) %>;
-    var lineChart = new Chart(lineCtx, {
-      type: 'line',
-      data: graphData
-    });
-  </script>
 </div>
