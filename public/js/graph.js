@@ -125,8 +125,6 @@ for (var k = 0; k < 5; k++){
 
 updatePieCharts(); // for first time init
 
-
-
 function updateAverages(user) {
 
   for(var i = 0; i < averages.length; i++) {
@@ -162,12 +160,13 @@ var radarChart = new Chart(radarCtx, {
   }
 });
 
-socket.on('emotions', function(user){
-  console.log(JSON.stringify(user));
-  socket_data = user
-  updateAverages(user);
-  radarChart.update();
-});
+function refresh(element){
+   //alert("In function");
+   var container = document.getElementById(element);
+   var content = container.innerHTML;
+   //alert(content);
+   container.innerHTML= content;
+}
 
 var socket = io();
 
