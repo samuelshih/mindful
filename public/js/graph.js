@@ -85,6 +85,7 @@ var lineChart = new Chart(lineCtx, {
 // *** RADAR GRAPH *****
 // *********************
 
+// calculating the average emotions over the whole day
 var averages = [0, 0, 0, 0, 0];
 var total = 0;
 for (var min = 0; min < 60; min++){
@@ -99,12 +100,11 @@ for (var min = 0; min < 60; min++){
     averages[4] += feels['sadness'][min]*num;
   }
 }
-averages[0] = averages[0] / total;
-averages[1] = averages[1] / total;
-averages[2] = averages[2] / total;
-averages[3] = averages[3] / total;
-averages[4] = averages[4] / total;
+for (var k = 0; k < 5; k++){
+  averages[k] = averages[k] / total;
+}
 
+// setting attrubutes of the html classes for our graphs
 $("#easypiechart-anger").attr('data-percent',averages[0]);
 $("#easypiechart-disgust").attr('data-percent',averages[1]);
 $("#easypiechart-fear").attr('data-percent',averages[2]);
@@ -116,11 +116,6 @@ $('.disgust-percent').html(String(averages[1].toFixed(0)) + '%');
 $('.fear-percent').html(String(averages[2].toFixed(0)) + '%');
 $('.joy-percent').html(String(averages[3].toFixed(0)) + '%');
 $('.sadness-percent').html(String(averages[4].toFixed(0)) + '%');
-
-// $("#easypiechart-disgust").attr('data-percent',averages[1]);
-// $("#easypiechart-fear").attr('data-percent',averages[2]);
-// $("#easypiechart-joy").attr('data-percent',averages[3]);
-// $("#easypiechart-sadness").attr('data-percent',averages[4]);
 
 var radarData = {
   labels: emotions,
