@@ -125,8 +125,8 @@ socket.on('emotions', function(emotion){
 
   var data = emotion[Object.keys(emotion)[0]];
 
-  var last = lineChart.data.datasets[0].data.length - 1;
-  console.log(lineChart.data.datasets)
+  // var last = lineChart.data.datasets[0].data.length - 1;
+  // console.log(lineChart.data.datasets)
 
   for (var i = 0; i < 5; i++) {
     // lineChart.data.datasets[i].data[last] = data[emotion_names[i]] * 100;
