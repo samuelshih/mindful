@@ -1,4 +1,5 @@
 # Mindful
+  ![alt text](https://github.com/samuelshih/mindful/blob/master/logo.png "Mindful")
 * [iOS Keyboard Extension](https://github.com/edwickable/mindful-keyboard/)
 * [Pennapps XV Devpost](https://devpost.com/software/mindful-t7ovb5)
 
