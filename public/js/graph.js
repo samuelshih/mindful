@@ -105,6 +105,23 @@ averages[2] = averages[2] / total;
 averages[3] = averages[3] / total;
 averages[4] = averages[4] / total;
 
+$("#easypiechart-anger").attr('data-percent',averages[0]);
+$("#easypiechart-disgust").attr('data-percent',averages[1]);
+$("#easypiechart-fear").attr('data-percent',averages[2]);
+$("#easypiechart-joy").attr('data-percent',averages[3]);
+$("#easypiechart-sadness").attr('data-percent',averages[4]);
+
+$('.angry-percent').html(String(averages[0].toFixed(0)) + '%');
+$('.disgust-percent').html(String(averages[1].toFixed(0)) + '%');
+$('.fear-percent').html(String(averages[2].toFixed(0)) + '%');
+$('.joy-percent').html(String(averages[3].toFixed(0)) + '%');
+$('.sadness-percent').html(String(averages[4].toFixed(0)) + '%');
+
+// $("#easypiechart-disgust").attr('data-percent',averages[1]);
+// $("#easypiechart-fear").attr('data-percent',averages[2]);
+// $("#easypiechart-joy").attr('data-percent',averages[3]);
+// $("#easypiechart-sadness").attr('data-percent',averages[4]);
+
 var radarData = {
   labels: emotions,
   datasets: [{

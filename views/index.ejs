@@ -54,7 +54,6 @@
 			</div>
 		</div>
 
-		<script src="js/graph.js"></script>
 		<!-- CIRCLE GRAPH STUFF -->
 			<div class="row">
 				<div class="col-xs-6 col-md-2 col-md-offset-1">
@@ -62,7 +61,7 @@
 						<div class="panel-body easypiechart-panel">
 							<h4>Anger</h4>
 							<!-- need to change both data-percent and the hardcoded value with ejs syntax <%= %>  -->
-							<div class="easypiechart" id="easypiechart-anger" data-percent="50" ><span class="percent">50%</span>
+							<div class="easypiechart" id="easypiechart-anger" data-percent="50"><span class="percent angry-percent">50%</span>
 							</div>
 						</div>
 					</div>
@@ -71,7 +70,7 @@
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
 							<h4>Joy</h4>
-							<div class="easypiechart" id="easypiechart-disgust" data-percent="65" ><span class="percent">65%</span>
+							<div class="easypiechart" id="easypiechart-disgust" data-percent="65" ><span class="percent disgust-percent">65%</span>
 							</div>
 						</div>
 					</div>
@@ -80,7 +79,7 @@
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
 							<h4>Disgust</h4>
-							<div class="easypiechart" id="easypiechart-fear" data-percent="56" ><span class="percent">56%</span>
+							<div class="easypiechart" id="easypiechart-fear" data-percent="56" ><span class="percent fear-percent">56%</span>
 							</div>
 						</div>
 					</div>
@@ -89,7 +88,7 @@
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
 							<h4>Sadness</h4>
-							<div class="easypiechart" id="easypiechart-joy" data-percent="27" ><span class="percent">27%</span>
+							<div class="easypiechart" id="easypiechart-joy" data-percent="27" ><span class="percent joy-percent">27%</span>
 							</div>
 						</div>
 					</div>
@@ -98,7 +97,7 @@
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
 							<h4>Fear</h4>
-							<div class="easypiechart" id="easypiechart-sadness" data-percent="27" ><span class="percent">27%</span>
+							<div class="easypiechart" id="easypiechart-sadness" data-percent="27" ><span class="percent sadness-percent">27%</span>
 							</div>
 						</div>
 					</div>
@@ -106,6 +105,8 @@
 			</div><!--/.row-->
 
 	</div>	<!--/.main-->
+
+	<script src="js/graph.js"></script>
 
 	<script src="lumino-dist/js/bootstrap.min.js"></script>
 	<script src="lumino-dist/js/chart.min.js"></script>
