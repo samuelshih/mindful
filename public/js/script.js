@@ -29,9 +29,3 @@ for(var i = 0; i < 23; i++) {
     'sadness': points[4]
   }
 }
-
-var socket = io();
-
-socket.on('emotions', function(emotion){
-  alert(JSON.stringify(emotion));
-});

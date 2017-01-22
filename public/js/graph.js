@@ -96,3 +96,13 @@ var radarChart = new Chart(radarCtx, {
   data: radarData,
   responsive: true
 });
+
+var socket = io();
+
+socket.on('emotions', function(emotion){
+  console.log(JSON.stringify(emotion));
+  // socket_data = emotion;
+
+  lineChart.data.datasets[0].data[2] = 50;
+  lineChart.update();
+});
