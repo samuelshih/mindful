@@ -21,7 +21,7 @@ function User() {
   joy: '0.497131',
   sadness: '0.238544',
  	entries: 1}}*/
-
+  this.date = 0;
   // date is of the form year_month_day
  	// entries is the # of strings per hour
 };
@@ -41,7 +41,8 @@ router.post('/newdata', function(req, res) {
   // get today's date for date year_month_day key for emotions dictionary
 	var d = new Date();
 	var date = String(String(d.getHours()) + "_" + String(test.numEntries));
-	test.params['text'] = req.body['text'];  //CHANGE THE KEY FOR THE REQUEST BODY DEPENDING ON ERIC
+	test.date = date;
+  test.params['text'] = req.body['text'];  //CHANGE THE KEY FOR THE REQUEST BODY DEPENDING ON ERIC
 
   // call watson with params
 	alchemy_language.emotion(test.params, function (err, res) {

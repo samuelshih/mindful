@@ -171,10 +171,10 @@ function refresh(element){
 var socket = io();
 
 socket.on('emotions', function(user){
-  console.log(JSON.stringify(user));
   socket_data = user['emotions']
   var emotion = socket_data
-  var data = emotion[Object.keys(emotion)[0]];
+  var data = emotion[user.date];
+  console.log(emotion[user.date]);
 
   // var last = lineChart.data.datasets[0].data.length - 1;
   // console.log(lineChart.data.datasets)
