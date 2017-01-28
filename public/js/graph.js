@@ -31,11 +31,11 @@ var feels = {'anger': [], 'disgust': [], 'fear': [], 'joy': [], 'sadness' : []};
 for (var min = 0; min < Object.keys(socket_data).length; min++){
   var key = String(hour) + '_' + String(min);
   if (key in socket_data){
-    feels['anger'].push(Number(socket_data[key]['anger'])*100);
-    feels['disgust'].push(Number(socket_data[key]['disgust'])*100);
-    feels['fear'].push(Number(socket_data[key]['fear'])*100);
-    feels['joy'].push(Number(socket_data[key]['joy'])*100);
-    feels['sadness'].push(Number(socket_data[key]['sadness'])*100);
+    feels['anger'].push(0/*Number(socket_data[key]['anger'])*100*/);
+    feels['disgust'].push(0/*Number(socket_data[key]['disgust'])*100*/);
+    feels['fear'].push(0/*Number(socket_data[key]['fear'])*100*/);
+    feels['joy'].push(0/*Number(socket_data[key]['joy'])*100*/);
+    feels['sadness'].push(0/*Number(socket_data[key]['sadness'])*100*/);
   }
 }
 
@@ -174,19 +174,20 @@ socket.on('emotions', function(user){
   socket_data = user['emotions']
   var emotion = socket_data
   var data = emotion[user.date];
-  console.log(emotion[user.date]);
+  //console.log(user.numEntries);
 
   // var last = lineChart.data.datasets[0].data.length - 1;
   // console.log(lineChart.data.datasets)
 
   for (var i = 0; i < 5; i++) {
-    if (data.entries == 1) {
+    //get rid of second conditional to keep predetermined data
+    if (data.entries == 1 && !(user.numEntries == 1)) {
       lineChart.data.datasets[i].data.push(data[emotion_names[i]] * 100);
     }
     else lineChart.data.datasets[i].data[lineChart.data.datasets[i].data.length - 1] = data[emotion_names[i]] * 100;
   }
 
-  console.log(lineChart.data.datasets)
+  //console.log(lineChart.data.datasets)
   lineChart.update();
   updateAverages(user);
   radarChart.update();
