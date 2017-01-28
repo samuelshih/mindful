@@ -180,8 +180,10 @@ socket.on('emotions', function(user){
   // console.log(lineChart.data.datasets)
 
   for (var i = 0; i < 5; i++) {
-    // lineChart.data.datasets[i].data[last] = data[emotion_names[i]] * 100;
-    lineChart.data.datasets[i].data.push(data[emotion_names[i]] * 100);
+    if (data.entries == 1) {
+      lineChart.data.datasets[i].data.push(data[emotion_names[i]] * 100);
+    }
+    else lineChart.data.datasets[i].data[lineChart.data.datasets[i].data.length - 1] = data[emotion_names[i]] * 100;
   }
 
   console.log(lineChart.data.datasets)
